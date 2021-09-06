@@ -62,6 +62,11 @@ function connect() {
     },
     function success() {
       debugLog('> Bluetooth Device connected. Try disconnect it now.');
+	  
+let txt = "";
+			for (let x in bluetoothDevice) {
+			txt += bluetoothDevice[x] + " ";
+}; debugLog(txt);
     },
     function fail() {
       time('Failed to reconnect.');
