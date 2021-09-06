@@ -13,6 +13,8 @@
 <p>kleur 2: </p>
 <input type="color" />
 <div/>
+<div id="error">
+</div>
 <script >
 var button = document.getElementById("button");
 button.addEventListener('click', function(event) {
@@ -21,7 +23,7 @@ navigator.bluetooth.requestDevice({
  optionalServices: ['battery_service'] // Required to access service later.
 })
 .then(device => { /* … */ })
-.catch(error => { console.error(error); });
+.catch(error => { document.getElementById("error").innerHTML = error; });
 });
 
 
