@@ -16,8 +16,7 @@ function onButtonClick() {
   }).then(server => {
 		return server.getPrimaryService(serviceUuid);
   })
-  .then(service => {
-    
+  .then(service => {    
     return service.getCharacteristic(characteristicUuid);
   }).then(characteristic => {
     return characteristic.getDescriptor('gatt.characteristic_user_description');
