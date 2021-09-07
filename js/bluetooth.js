@@ -1,4 +1,7 @@
+var serviceUuid = 0xFFE0; 
+var characteristicUuid = 0xFFE1;
 var bluetoothDevice;
+var myDescriptor;
 
 function onButtonClick() {
   bluetoothDevice = null;
@@ -10,6 +13,22 @@ function onButtonClick() {
     bluetoothDevice = device;
     bluetoothDevice.addEventListener('gattserverdisconnected', onDisconnected);
     connect();
+  }).then(server => {
+    log('Getting Service...');
+    return server.getPrimaryService(serviceUuid);
+  })
+  .then(service => {
+    log('Getting Characteristic...');
+    return service.getCharacteristic(characteristicUuid);
+  }).then(characteristic => {
+    log('Getting Descriptor...');
+    return characteristic.getDescriptor('gatt.characteristic_user_description');
+  })
+  .then(descriptor => {
+
+    myDescriptor = descriptor;
+    log('Reading Descriptor...');
+    return descriptor.readValue();
   })
   .catch(error => {
     debugLog('Argh! ' + error);
@@ -24,16 +43,12 @@ function connect() {
     },
     function success() {
       debugLog('> Bluetooth Device connected. Try disconnect it now.');
-	  
-let txt = "";
-			for (let x in bluetoothDevice) {
-			txt += bluetoothDevice[x] + " ";
-}; debugLog(txt);
     },
     function fail() {
       time('Failed to reconnect.');
     });
 }
+
 
 function onDisconnected() {
   debugLog('> Bluetooth Device disconnected');
