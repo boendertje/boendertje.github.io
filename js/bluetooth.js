@@ -18,7 +18,11 @@ function onButtonClick() {
   })
   .then(service => {    
     return service.getCharacteristic(parseInt(characteristicUuid));
-  }).then(characteristic => {
+  }).then(characteristic => characteristic.startNotifications())
+  .then(characteristic => {
+	  characteristic.addEventListener('characteristicvaluechanged',
+      handleCharacteristicValueChanged);
+
     return characteristic.getDescriptor('gatt.characteristic_user_description');
   })
   .then(descriptor => {
@@ -31,6 +35,12 @@ function onButtonClick() {
   .catch(error => {
     debugLog('Argh! ' + error);
   });
+}
+function handleCharacteristicValueChanged(event) {
+  const value = event.target.value;
+  console.log('Received ' + value);
+  // TODO: Parse Heart Rate Measurement value.
+  // See https://github.com/WebBluetoothCG/demos/blob/gh-pages/heart-rate-sensor/heartRateSensor.js
 }
 
 function connect() {
