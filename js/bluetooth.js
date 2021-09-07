@@ -14,20 +14,17 @@ function onButtonClick() {
 		bluetoothDevice.addEventListener('gattserverdisconnected', onDisconnected);
 		connect();
   }).then(server => {
-		log('Getting Service...');
 		return server.getPrimaryService(serviceUuid);
   })
   .then(service => {
-    log('Getting Characteristic...');
+    
     return service.getCharacteristic(characteristicUuid);
   }).then(characteristic => {
-    log('Getting Descriptor...');
     return characteristic.getDescriptor('gatt.characteristic_user_description');
   })
   .then(descriptor => {
 
     myDescriptor = descriptor;
-    log('Reading Descriptor...');
     return descriptor.readValue();
   }).then(value =>{
 	debugLog(value);  
