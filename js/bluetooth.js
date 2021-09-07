@@ -10,12 +10,12 @@ function onButtonClick() {
      // filters: [...] <- Prefer filters to save energy & show relevant devices.
      acceptAllDevices: true})
   .then(device => {
-    bluetoothDevice = device;
-    bluetoothDevice.addEventListener('gattserverdisconnected', onDisconnected);
-    connect();
+		bluetoothDevice = device;
+		bluetoothDevice.addEventListener('gattserverdisconnected', onDisconnected);
+		connect();
   }).then(server => {
-    log('Getting Service...');
-    return server.getPrimaryService(serviceUuid);
+		log('Getting Service...');
+		return server.getPrimaryService(serviceUuid);
   })
   .then(service => {
     log('Getting Characteristic...');
@@ -29,6 +29,8 @@ function onButtonClick() {
     myDescriptor = descriptor;
     log('Reading Descriptor...');
     return descriptor.readValue();
+  }).then(value =>{
+	debugLog(value);  
   })
   .catch(error => {
     debugLog('Argh! ' + error);
