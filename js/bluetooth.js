@@ -31,7 +31,7 @@ function onButtonClick() {
   }).then(characteristic => {
     debugLog('Getting Descriptor...');
    myCharacteristic = characteristic
-  })).catch(error => {
+  }).catch(error => {
     debugLog('Argh! ' + error);
   });
 }
