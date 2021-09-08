@@ -27,7 +27,12 @@ function onButtonClick() {
   .then(service => {
     debugLog('Getting Characteristic...');
     return service.getCharacteristic(characteristicUuid);
-  })
+  }).then(characteristic => characteristic.startNotifications())
+.then(characteristic => {
+  characteristic.addEventListener('characteristicvaluechanged',
+                                  handleCharacteristicValueChanged);
+  debugLog('Notifications have been started.');
+})
   .then(characteristic => {
   // Reading Battery Level…
    debugLog("Read value");
