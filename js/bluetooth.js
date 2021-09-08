@@ -2,6 +2,7 @@
 //var characteristicUuid = parseInt(0xFFE1);
 //var bluetoothDevice;
 var myCharacteristic;
+var currentMode = 1;
 
 
 function onButtonClick() {
@@ -58,10 +59,9 @@ function connect() {
 function onButtonClickTwo()
 {
   let encoder = new TextEncoder('utf-8');
-  let value = "YES MF";
+  let value = toString(currentMode) + toString(document.getElementById("colorpicker2").value) + toString(document.getElementById("colorpicker2").value);
   debugLog('Setting Characteristic User Description...');
   myCharacteristic.writeValue(encoder.encode(value));
-	
 }
 
 function onDisconnected() {
