@@ -1,5 +1,5 @@
-var serviceUuid = 0xFFE0; 
-var characteristicUuid = 0xFFE1;
+var serviceUuid = parseInt(0xFFE0); 
+var characteristicUuid = parseInt(0xFFE1);
 var bluetoothDevice;
 var myDescriptor;
 
@@ -8,16 +8,17 @@ function onButtonClick() {
   debugLog('Requesting any Bluetooth Device...');
   navigator.bluetooth.requestDevice({
      // filters: [...] <- Prefer filters to save energy & show relevant devices.
-     acceptAllDevices: true})
+     acceptAllDevices: true,
+     optionalServices: [serviceUuid]})
   .then(device => {
 		bluetoothDevice = device;
 		bluetoothDevice.addEventListener('gattserverdisconnected', onDisconnected);
 		connect();
   }).then(server => {
-		return server.getPrimaryService(parseInt(serviceUuid));
+		return server.getPrimaryService(serviceUuid);
   })
   .then(service => {    
-    return service.getCharacteristic(parseInt(characteristicUuid));
+    return service.getCharacteristic(characteristicUuid);
   }).then(characteristic => characteristic.startNotifications())
   .then(characteristic => {
 	  characteristic.addEventListener('characteristicvaluechanged',
