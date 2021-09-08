@@ -7,7 +7,7 @@ function onButtonClick() {
   let serviceUuid = 0xFFE0;
   serviceUuid = parseInt(serviceUuid);
 
-  let characteristicUuid = 0xFFE1;
+  let characteristicUuid = 0xFFE2;
   characteristicUuid = parseInt(characteristicUuid);
 
 
@@ -33,6 +33,7 @@ function onButtonClick() {
                                   handleCharacteristicValueChanged);
 								    const resetEnergyExpended = Uint8Array.of(1); 
 									debugLog('Notifications have been started.');
+  return characteristic.writeValue(resetEnergyExpended);
  
 }).catch(error => {
     debugLog('Argh! ' + error);
