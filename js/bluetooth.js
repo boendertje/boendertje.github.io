@@ -35,12 +35,7 @@ function onButtonClick() {
 									debugLog('Notifications have been started.');
   return characteristic.writeValue(resetEnergyExpended);
  
-})
-
-.then(value => {
-  debugLog("YES");
-})
-  .catch(error => {
+}).catch(error => {
     debugLog('Argh! ' + error);
   });
 }
