@@ -4,36 +4,48 @@ var bluetoothDevice;
 var myDescriptor;
 
 function onButtonClick() {
-  bluetoothDevice = null;
+  let serviceUuid = 0xFFE0;
+  if (serviceUuid.startsWith('0x')) {
+    serviceUuid = parseInt(serviceUuid);
+  }
+
+  let characteristicUuid = 0xFFE1;
+  if (characteristicUuid.startsWith('0x')) {
+    characteristicUuid = parseInt(characteristicUuid);
+  }
+
   debugLog('Requesting any Bluetooth Device...');
   navigator.bluetooth.requestDevice({
-     // filters: [...] <- Prefer filters to save energy & show relevant devices.
-     acceptAllDevices: true,
-     optionalServices: [serviceUuid]})
+   // filters: [...] <- Prefer filters to save energy & show relevant devices.
+      acceptAllDevices: true,
+      optionalServices: [serviceUuid]})
   .then(device => {
-		bluetoothDevice = device;
-		bluetoothDevice.addEventListener('gattserverdisconnected', onDisconnected);
-		connect();
-  }).then(server => {
-		return server.getPrimaryService(serviceUuid);
+    debugLog('Connecting to GATT Server...');
+    return device.gatt.connect();
   })
-  .then(service => {    
+  .then(server => {
+    debugLog('Getting Service...');
+    return server.getPrimaryService(serviceUuid);
+  })
+  .then(service => {
+    debugLog('Getting Characteristic...');
     return service.getCharacteristic(characteristicUuid);
-  }).then(characteristic => characteristic.startNotifications())
+  })
   .then(characteristic => {
-	  characteristic.addEventListener('characteristicvaluechanged',
-      handleCharacteristicValueChanged);
-
+    debugLog('Getting Descriptor...');
     return characteristic.getDescriptor('gatt.characteristic_user_description');
   })
   .then(descriptor => {
-
-    myDescriptor = descriptor;
+  
+    debugLog('Reading Descriptor...');
     return descriptor.readValue();
-  }).then(value =>{
-	debugLog(value);  
+  })
+  .then(value => {
+    let decoder = new TextDecoder('utf-8');
+    debugLog('> Characteristic User Description: ' + decoder.decode(value));
   })
   .catch(error => {
+    document.querySelector('#writeButton').disabled = true;
     debugLog('Argh! ' + error);
   });
 }
