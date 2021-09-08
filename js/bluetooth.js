@@ -1,7 +1,7 @@
 //var serviceUuid = parseInt(0xFFE0); 
 //var characteristicUuid = parseInt(0xFFE1);
 //var bluetoothDevice;
-//var myDescriptor;
+var myDescriptor;
 
 function onButtonClick() {
   let serviceUuid = 0xFFE0;
@@ -27,13 +27,18 @@ function onButtonClick() {
   .then(service => {
     debugLog('Getting Characteristic...');
     return service.getCharacteristic(characteristicUuid);
-  }).then(characteristic => characteristic.startNotifications())
-.then(characteristic => {
-  characteristic.addEventListener('characteristicvaluechanged',
-                                  handleCharacteristicValueChanged);
-								    const resetEnergyExpended = Uint8Array.of(1); 
-									debugLog('Notifications have been started.');
-  return characteristic.writeValue(resetEnergyExpended);
+  }).then(characteristic => {
+    debugLog('Getting Descriptor...');
+    return characteristic.getDescriptor('gatt.characteristic_user_description');
+  })
+  .then(descriptor => {
+   
+    myDescriptor = descriptor;
+	let encoder = new TextEncoder('utf-8');
+  let value = document.querySelector('#description').value;
+  debugLog('Setting Characteristic User Description...');
+  myDescriptor.writeValue(encoder.encode(value))
+  })
  
 }).catch(error => {
     debugLog('Argh! ' + error);
