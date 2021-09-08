@@ -31,15 +31,12 @@ function onButtonClick() {
 .then(characteristic => {
   characteristic.addEventListener('characteristicvaluechanged',
                                   handleCharacteristicValueChanged);
-								    const resetEnergyExpended = Uint8Array.of(1);
+								    const resetEnergyExpended = Uint8Array.of(1); 
+									debugLog('Notifications have been started.');
   return characteristic.writeValue(resetEnergyExpended);
-  debugLog('Notifications have been started.');
+ 
 })
-  .then(characteristic => {
-  // Reading Battery Level…
-   debugLog("Read value");
-  return characteristic.readValue();
-})
+
 .then(value => {
   debugLog("YES");
 })
