@@ -8,7 +8,7 @@ function onButtonClick() {
   let serviceUuid = 0xFFE0;
   serviceUuid = parseInt(serviceUuid);
 
-  let characteristicUuid = 0xFFE1;
+  let characteristicUuid = 0xFFE2;
   characteristicUuid = parseInt(characteristicUuid);
 
 
