@@ -55,9 +55,9 @@ function connect() {
       time('Failed to reconnect.');
     });
 }
-function onButtonClick2()
+function onButtonClickTwo()
 {
-		let encoder = new TextEncoder('utf-8');
+  let encoder = new TextEncoder('utf-8');
   let value = "YES MF";
   debugLog('Setting Characteristic User Description...');
   myCharacteristic.writeValue(encoder.encode(value));
