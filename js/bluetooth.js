@@ -38,9 +38,7 @@ function onButtonClick() {
   let value = document.querySelector('#description').value;
   debugLog('Setting Characteristic User Description...');
   myDescriptor.writeValue(encoder.encode(value))
-  })
- 
-}).catch(error => {
+  }).catch(error => {
     debugLog('Argh! ' + error);
   });
 }
