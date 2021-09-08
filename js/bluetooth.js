@@ -29,20 +29,13 @@ function onButtonClick() {
     return service.getCharacteristic(characteristicUuid);
   })
   .then(characteristic => {
-    debugLog('Getting Descriptor...');
-    return characteristic.getDescriptor('gatt.characteristic_user_description');
-  })
-  .then(descriptor => {
-  
-    debugLog('Reading Descriptor...');
-    return descriptor.readValue();
-  })
-  .then(value => {
-    let decoder = new TextDecoder('utf-8');
-    debugLog('> Characteristic User Description: ' + decoder.decode(value));
-  })
+  // Reading Battery Level…
+  return characteristic.readValue();
+})
+.then(value => {
+  debugLog("YES");
+})
   .catch(error => {
-    document.querySelector('#writeButton').disabled = true;
     debugLog('Argh! ' + error);
   });
 }
