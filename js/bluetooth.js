@@ -30,7 +30,7 @@ function onButtonClick() {
     return service.getCharacteristic(characteristicUuid);
   }).then(characteristic => {
     debugLog('Getting Descriptor...');
-   myCharacteristic = characteristic
+   myCharacteristic = characteristic;
   }).catch(error => {
     debugLog('Argh! ' + error);
   });
