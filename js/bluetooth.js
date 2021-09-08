@@ -33,7 +33,6 @@ function onButtonClick() {
                                   handleCharacteristicValueChanged);
 								    const resetEnergyExpended = Uint8Array.of(1); 
 									debugLog('Notifications have been started.');
-  return characteristic.writeValue(resetEnergyExpended);
  
 }).catch(error => {
     debugLog('Argh! ' + error);
