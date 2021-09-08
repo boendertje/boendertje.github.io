@@ -30,6 +30,7 @@ function onButtonClick() {
   })
   .then(characteristic => {
   // Reading Battery Level…
+   debugLog("Read value");
   return characteristic.readValue();
 })
 .then(value => {
