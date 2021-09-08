@@ -1,18 +1,15 @@
-var serviceUuid = parseInt(0xFFE0); 
-var characteristicUuid = parseInt(0xFFE1);
-var bluetoothDevice;
-var myDescriptor;
+//var serviceUuid = parseInt(0xFFE0); 
+//var characteristicUuid = parseInt(0xFFE1);
+//var bluetoothDevice;
+//var myDescriptor;
 
 function onButtonClick() {
   let serviceUuid = 0xFFE0;
-  if (serviceUuid.startsWith('0x')) {
-    serviceUuid = parseInt(serviceUuid);
-  }
+  serviceUuid = parseInt(serviceUuid);
 
   let characteristicUuid = 0xFFE1;
-  if (characteristicUuid.startsWith('0x')) {
-    characteristicUuid = parseInt(characteristicUuid);
-  }
+  characteristicUuid = parseInt(characteristicUuid);
+
 
   debugLog('Requesting any Bluetooth Device...');
   navigator.bluetooth.requestDevice({
