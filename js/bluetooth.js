@@ -59,7 +59,7 @@ function connect() {
 function onButtonClickTwo()
 {
   let encoder = new TextEncoder('utf-8');
-  let value = currentMode + document.getElementById("colorpicker2").value + document.getElementById("colorpicker2").value;
+  let value = currentMode+ ':' + document.getElementById("colorpicker2").value + ':' + document.getElementById("colorpicker2").value + " CRLF";
   debugLog('Setting Characteristic User Description...');
   myCharacteristic.writeValue(encoder.encode(value));
 }
