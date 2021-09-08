@@ -1,7 +1,8 @@
 //var serviceUuid = parseInt(0xFFE0); 
 //var characteristicUuid = parseInt(0xFFE1);
 //var bluetoothDevice;
-var myDescriptor;
+var myCharacteristic;
+
 
 function onButtonClick() {
   let serviceUuid = 0xFFE0;
@@ -29,16 +30,8 @@ function onButtonClick() {
     return service.getCharacteristic(characteristicUuid);
   }).then(characteristic => {
     debugLog('Getting Descriptor...');
-    return characteristic.getDescriptor('gatt.characteristic_user_description');
-  })
-  .then(descriptor => {
-   
-    myDescriptor = descriptor;
-	let encoder = new TextEncoder('utf-8');
-  let value = "YES MF";
-  debugLog('Setting Characteristic User Description...');
-  myDescriptor.writeValue(encoder.encode(value));
-  }).catch(error => {
+   myCharacteristic = characteristic
+  })).catch(error => {
     debugLog('Argh! ' + error);
   });
 }
@@ -67,7 +60,7 @@ function onButtonClick2()
 		let encoder = new TextEncoder('utf-8');
   let value = "YES MF";
   debugLog('Setting Characteristic User Description...');
-  myDescriptor.writeValue(encoder.encode(value));
+  myCharacteristic.writeValue(encoder.encode(value));
 	
 }
 
