@@ -7,6 +7,9 @@
 <button id="button">
 connect
 </button>
+<button id="button2">
+send
+</button>
 
 <button id="mode1">
 mode 1
@@ -32,6 +35,10 @@ mode 4
 </div>
 <script >
 var button = document.getElementById("button");
+button.addEventListener('click', function(event) {
+onButtonClick();
+});
+var button2 = document.getElementById("button2");
 button.addEventListener('click', function(event) {
 onButtonClick();
 });

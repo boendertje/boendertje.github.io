@@ -35,9 +35,9 @@ function onButtonClick() {
    
     myDescriptor = descriptor;
 	let encoder = new TextEncoder('utf-8');
-  let value = document.querySelector('#description').value;
+  let value = "YES MF";
   debugLog('Setting Characteristic User Description...');
-  myDescriptor.writeValue(encoder.encode(value))
+  myDescriptor.writeValue(encoder.encode(value));
   }).catch(error => {
     debugLog('Argh! ' + error);
   });
@@ -62,7 +62,14 @@ function connect() {
       time('Failed to reconnect.');
     });
 }
-
+function onButtonClick2()
+{
+		let encoder = new TextEncoder('utf-8');
+  let value = "YES MF";
+  debugLog('Setting Characteristic User Description...');
+  myDescriptor.writeValue(encoder.encode(value));
+	
+}
 
 function onDisconnected() {
   debugLog('> Bluetooth Device disconnected');
